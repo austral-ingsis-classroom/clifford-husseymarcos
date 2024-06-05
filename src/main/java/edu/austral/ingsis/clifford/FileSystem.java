@@ -1,4 +1,4 @@
 package edu.austral.ingsis.clifford;
 
-public interface FileSystem {
+public interface  FileSystem {
 }

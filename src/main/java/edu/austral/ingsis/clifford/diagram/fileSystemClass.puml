@@ -1,0 +1,32 @@
+@startuml
+
+
+interface FileSystem{
+    Map<String, CommandBuilder> commandMap
+    String executeCommand(String commandName, Archive target)
+}
+
+
+interface Command{
+    String execute()
+}
+
+
+FileSystem --> CommandBuilder
+
+
+interface CommandBuilder{}
+CommandBuilder -> Command
+
+class CdCommandBuilder implements CommandBuilder{}
+
+class CdCommand implements Command{}
+
+interface FileSystem{}
+
+class Directory implements FileSystem{}
+
+class File implements FileSystem{}
+
+
+@enduml
