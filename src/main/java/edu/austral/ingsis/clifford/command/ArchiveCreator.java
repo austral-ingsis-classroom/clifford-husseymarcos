@@ -8,8 +8,8 @@ public class ArchiveCreator {
 
     public String createArchive(FileSystem archive) {
 
-        String name = archive.getName();
-        Directory directory = archive.getRootDirectory();
+        String name = archive.name();
+        Directory directory = archive.directory();
 
         if (isInvalidName(name)) {
             return "Invalid name: '" + name + "'. It cannot contain '/' or spaces.";

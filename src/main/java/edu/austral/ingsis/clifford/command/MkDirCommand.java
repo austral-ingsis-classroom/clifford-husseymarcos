@@ -24,7 +24,7 @@ public class MkDirCommand implements Command {
   public String toString() {
     return "mkdir {"
         + "current Directory="
-        + currentDirectory.getName()
+        + currentDirectory.name()
         + ", new Directory ='"
         + dirName
         + '\''

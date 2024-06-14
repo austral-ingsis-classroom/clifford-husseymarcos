@@ -19,7 +19,7 @@ public class CdCommand implements Command {
 
     if (getToRootArgument) {
       currentDirectory = currentDirectory.getRootDirectory();
-      return "moved to directory '" + currentDirectory.getName() + "'";
+      return "moved to directory '" + currentDirectory.name() + "'";
     }
 
     String[] directories = parameter.split("/");
@@ -37,7 +37,7 @@ public class CdCommand implements Command {
         if (parent != null) {
           destination = parent;
         } else {
-          return "moved to directory '" + currentDirectory.getName() + "'";
+          return "moved to directory '" + currentDirectory.name() + "'";
         }
 
       } else {
@@ -51,7 +51,7 @@ public class CdCommand implements Command {
     }
 
     currentDirectory = destination;
-    return "moved to directory '" + destination.getName() + "'";
+    return "moved to directory '" + destination.name() + "'";
   }
 
   public Directory getCurrentDirectory() {
@@ -62,7 +62,7 @@ public class CdCommand implements Command {
   public String toString() {
     return "cd {"
         + "current Directory="
-        + currentDirectory.getName()
+        + currentDirectory.name()
         + ", new Directory ='"
         + parameter
         + '\''

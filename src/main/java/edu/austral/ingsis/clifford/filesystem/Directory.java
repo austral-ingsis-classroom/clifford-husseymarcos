@@ -19,7 +19,7 @@ public class Directory implements FileSystem {
   }
 
   @Override
-  public String getName() {
+  public String name() {
     return name;
   }
 
@@ -28,7 +28,7 @@ public class Directory implements FileSystem {
   }
 
   public void add(FileSystem archive) {
-    String archiveName = archive.getName();
+    String archiveName = archive.name();
     allFileSystems.remove(archiveName);
     allFileSystems.put(archiveName, archive);
   }
@@ -45,7 +45,7 @@ public class Directory implements FileSystem {
     Map<String, Directory> subDirectories = new HashMap<>();
     for (FileSystem fileSystem : allFileSystems.values()) {
       if (fileSystem instanceof Directory directory) {
-        subDirectories.put(directory.getName(), directory);
+        subDirectories.put(directory.name(), directory);
       }
     }
     return subDirectories;
@@ -77,7 +77,7 @@ public class Directory implements FileSystem {
     Directory current = this;
 
     while (current != null) {
-      String currentDirectoryName = current.getName();
+      String currentDirectoryName = current.name();
       if (!currentDirectoryName.equals("/")) {
         pathDeque.addFirst(currentDirectoryName);
       }
@@ -91,12 +91,8 @@ public class Directory implements FileSystem {
     }
   }
 
-  public Directory getRootDirectory() {
-    Directory current = this;
-    while (current.getParent() != null) {
-      current = current.getParent();
-    }
-    return current;
+  public Directory directory() {
+    return parent;
   }
 
   public Map<String, FileSystem> getAllFileSystems() {
@@ -107,4 +103,14 @@ public class Directory implements FileSystem {
   public String toString() {
     return name;
   }
+
+  public Directory getRootDirectory() {
+    Directory current = this;
+    while (current.getParent() != null) {
+      current = current.getParent();
+    }
+    return current;
+  }
+
+
 }

@@ -37,7 +37,7 @@ public class RmCommand implements Command {
 
       for (Directory subDirectory : subDirectorySubDirectories) {
 
-        String subDirectoryName = subDirectory.getName();
+        String subDirectoryName = subDirectory.name();
         removeRecursive(subDirectoryToRemove, subDirectoryName);
       }
 
@@ -74,7 +74,7 @@ public class RmCommand implements Command {
   public String toString() {
     return "RmCommand{"
         + "currentDirectory="
-        + currentDirectory.getName()
+        + currentDirectory.name()
         + ", name='"
         + name
         + '\''
