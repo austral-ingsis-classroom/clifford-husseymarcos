@@ -14,19 +14,16 @@ public class CdCommand implements Command{
 
     @Override
     public String execute() {
-
         if (name.equals("..")) {
             Directory parent = currentDirectory.getParent();
             if (parent != null) {
                 currentDirectory = parent;
-                return "Changed directory to parent";
+                return "moved to directory '" + parent.getName() + "'";
             } else {
-                return "Already at the root directory.";
+                return "moved to directory '/'";
             }
         } else {
-
             Directory newDirectory = currentDirectory.getSubDirectory(name);
-
             if (newDirectory != null) {
                 currentDirectory = newDirectory;
                 return "Changed directory to '" + name + "'";

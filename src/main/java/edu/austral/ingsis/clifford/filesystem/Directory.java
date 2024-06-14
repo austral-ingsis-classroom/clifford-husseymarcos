@@ -1,7 +1,6 @@
 package edu.austral.ingsis.clifford.filesystem;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Directory implements FileSystem {
 
@@ -9,7 +8,6 @@ public class Directory implements FileSystem {
     private final Directory parent;
     private final Map<String, Directory> subDirectories;
     private final Map<String, File> files;
-
 
     public Directory(String name) {
         this(name, null);
@@ -21,7 +19,6 @@ public class Directory implements FileSystem {
         this.subDirectories = new HashMap<>();
         this.files = new HashMap<>();
     }
-
 
     @Override
     public String getName() {
@@ -38,6 +35,22 @@ public class Directory implements FileSystem {
 
     public void add(File file) {
         files.put(file.getName(), file);
+    }
+
+    public List<String> listContents(boolean ascendingOrder) {
+        Set<String> subDirectories = this.subDirectories.keySet();
+        Set<String> files = this.files.keySet();
+
+        List<String> contents = new ArrayList<>(subDirectories);
+        contents.addAll(files);
+
+        if (ascendingOrder) {
+            Collections.sort(contents);
+        } else {
+            Comparator<String> reverseOrder = Collections.reverseOrder();
+            contents.sort(reverseOrder);
+        }
+        return contents;
     }
 
 
