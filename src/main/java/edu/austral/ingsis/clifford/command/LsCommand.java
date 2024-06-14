@@ -3,7 +3,7 @@ package edu.austral.ingsis.clifford.command;
 import java.util.*;
 
 import edu.austral.ingsis.clifford.filesystem.Directory;
-import edu.austral.ingsis.clifford.filesystem.File;
+import edu.austral.ingsis.clifford.filesystem.FileSystem;
 
 public class LsCommand implements Command {
 
@@ -25,14 +25,11 @@ public class LsCommand implements Command {
     }
 
     public List<String> listContents(Directory directory) {
-        Map<String, Directory> directorySubDirectories = directory.getSubDirectories();
-        Map<String, File> directoryFiles = directory.getFiles();
+        Map<String, FileSystem> allFiles = directory.getAllFileSystems();
 
-        Set<String> subDirectories = directorySubDirectories.keySet();
-        Set<String> files = directoryFiles.keySet();
+        Set<String> allArchives = allFiles.keySet();
 
-        List<String> contents = new ArrayList<>(subDirectories);
-        contents.addAll(files);
+        List<String> contents = new ArrayList<>(allArchives);
 
         if (noOrder){
             return contents;

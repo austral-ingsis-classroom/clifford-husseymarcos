@@ -6,8 +6,7 @@ public class Directory implements FileSystem {
 
     private final String name;
     private final Directory parent;
-    private final Map<String, Directory> subDirectories;
-    private final Map<String, File> files;
+    private final Map<String, FileSystem> allFileSystems;
 
     public Directory(String name) {
         this(name, null);
@@ -16,8 +15,7 @@ public class Directory implements FileSystem {
     public Directory(String name, Directory parent) {
         this.name = name;
         this.parent = parent;
-        this.subDirectories = new LinkedHashMap<>();
-        this.files = new HashMap<>();
+        this.allFileSystems = new HashMap<>();
     }
 
     @Override
@@ -30,50 +28,52 @@ public class Directory implements FileSystem {
     }
 
     public void add(Directory directory) {
-        subDirectories.put(directory.getName(), directory);
+        allFileSystems.put(directory.getName(), directory);
     }
 
     public void add(File file) {
-        files.put(file.getName(), file);
+        allFileSystems.put(file.getName(), file);
     }
 
 
     public Directory getSubDirectory(String name) {
-        return subDirectories.get(name);
+        FileSystem archive = allFileSystems.get(name);
+        if (archive instanceof Directory) {
+            return (Directory) archive;
+        }
+        return null;
     }
 
     public Map<String, Directory> getSubDirectories() {
+        Map<String, Directory> subDirectories = new HashMap<>();
+        for (FileSystem fileSystem : allFileSystems.values()) {
+            if (fileSystem instanceof Directory directory) {
+                subDirectories.put(directory.getName(), directory);
+            }
+        }
         return subDirectories;
     }
 
-    public Map<String, File> getFiles() {
-        return files;
-    }
+
 
     public File getFile(String name) {
-        return files.get(name);
+        FileSystem archive = allFileSystems.get(name);
+        if (archive instanceof File) {
+            return (File) archive;
+        }
+        return null;
     }
 
     public void removeFile(String name) {
-        files.remove(name);
+        allFileSystems.remove(name);
     }
 
     public boolean removeSubDirectory(String directoryName) {
-        Directory subDirectoryToRemove = subDirectories.get(directoryName);
-
+        Directory subDirectoryToRemove = getSubDirectory(directoryName);
         if (subDirectoryToRemove != null) {
-
-            Collection<Directory> directories = subDirectoryToRemove.getSubDirectories().values();
-
-            for (Directory subSubDirectory : directories) {
-                String subDirectoryName = subSubDirectory.getName();
-                removeSubDirectory(subDirectoryName);
-            }
-
-            subDirectoryToRemove.getFiles().clear();
-            return subDirectories.remove(directoryName) != null;
+            allFileSystems.remove(directoryName);
+            return true;
         }
-
         return false;
     }
 
@@ -92,10 +92,13 @@ public class Directory implements FileSystem {
         return String.join("/", pathDeque);
     }
 
+    public Map<String, FileSystem> getAllFileSystems() {
+        return allFileSystems;
+    }
+
     @Override
     public String toString() {
         return name;
     }
-
 
 }
