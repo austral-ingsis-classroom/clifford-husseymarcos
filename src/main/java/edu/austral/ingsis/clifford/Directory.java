@@ -5,10 +5,10 @@ import java.util.Map;
 
 public class Directory implements FileSystem{
 
-    private String name;
-    private Directory parent;
-    private Map<String, Directory> subDirectories;
-    private Map<String, File> files;
+    private final String name;
+    private final Directory parent;
+    private final Map<String, Directory> subDirectories;
+    private final Map<String, File> files;
 
 
 
@@ -45,17 +45,7 @@ public class Directory implements FileSystem{
 
 
     public Directory getSubDirectory(String name) {
-        for (FileSystem fs : contents) {
-
-            String fsName = fs.getName();
-            boolean fsEqualsName = fsName.equals(name);
-
-            if (fs instanceof Directory && fsEqualsName) {
-                return (Directory) fs;
-            }
-        }
-        return null;
+        return subDirectories.get(name);
     }
-
 
 }

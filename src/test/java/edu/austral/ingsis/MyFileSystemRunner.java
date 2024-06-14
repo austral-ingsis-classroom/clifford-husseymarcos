@@ -30,9 +30,8 @@ public class MyFileSystemRunner implements FileSystemRunner{
                 .setCurrentDirectory(currentDirectory)
                 .setDirName(""));
 
-        
-    }
 
+    }
 
     @Override
     public List<String> executeCommands(List<String> commands) {
