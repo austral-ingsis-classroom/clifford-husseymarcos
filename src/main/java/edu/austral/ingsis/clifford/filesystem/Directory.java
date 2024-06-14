@@ -40,7 +40,8 @@ public class Directory implements FileSystem {
   public Map<String, Directory> getSubDirectories() {
     Map<String, Directory> subDirectories = new HashMap<>();
     for (FileSystem fileSystem : allFileSystems.values()) {
-      if (fileSystem instanceof Directory directory) {
+      if (fileSystem instanceof Directory) {
+        Directory directory = (Directory) fileSystem;
         subDirectories.put(directory.name(), directory);
       }
     }
