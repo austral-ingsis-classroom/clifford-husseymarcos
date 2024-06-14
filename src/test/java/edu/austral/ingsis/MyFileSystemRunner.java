@@ -29,8 +29,6 @@ public class MyFileSystemRunner implements FileSystemRunner{
         commandBuilders.put("mkdir", new MkDirCommandBuilder()
                 .setCurrentDirectory(currentDirectory)
                 .setDirName(""));
-
-
     }
 
     @Override
@@ -38,35 +36,41 @@ public class MyFileSystemRunner implements FileSystemRunner{
         List<String> results = new ArrayList<>();
 
         for (String command : commands) {
-            results.add(executeCommand(command));
+            String executedCommand = executeCommand(command);
+            results.add(executedCommand);
         }
-
         return results;
     }
 
     private String executeCommand(String command) {
+
         String[] parts = command.split(" ");
         String mainCommand = parts[0];
 
         CommandBuilder builder = commandBuilders.get(mainCommand);
+
         if (builder == null) {
             return "Unknown command: " + command;
         }
 
+        String arguments = parts[1];
+
         switch (mainCommand) {
             case "mkdir":
-                ((MkDirCommandBuilder) builder).setDirName(parts.length > 1 ? parts[1] : "");
+                MkDirCommandBuilder mkDirCommandBuilder = (MkDirCommandBuilder) builder;
+                mkDirCommandBuilder.setDirName(arguments);
                 break;
             case "cd":
-                ((CdCommandBuilder) builder).setDirName(parts.length > 1 ? parts[1] : "");
+                CdCommandBuilder cdCommandBuilder = (CdCommandBuilder) builder;
+                cdCommandBuilder.setDirName(arguments);
                 break;
         }
 
         Command cmd = builder.build();
         String result = cmd.execute();
 
-        if (cmd instanceof CdCommand) {
-            currentDirectory = ((CdCommand) cmd).getCurrentDirectory();
+        if (cmd instanceof CdCommand cdCommand) {
+            currentDirectory = cdCommand.getCurrentDirectory();
         }
 
         return result;

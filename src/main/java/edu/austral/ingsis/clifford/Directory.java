@@ -11,7 +11,6 @@ public class Directory implements FileSystem{
     private final Map<String, File> files;
 
 
-
     public Directory(String name) {
         this(name, null);
     }
@@ -22,7 +21,6 @@ public class Directory implements FileSystem{
         this.subDirectories = new HashMap<>();
         this.files = new HashMap<>();
     }
-
 
 
     @Override
@@ -41,7 +39,6 @@ public class Directory implements FileSystem{
     public void add(File file) {
         files.put(file.getName(), file);
     }
-
 
 
     public Directory getSubDirectory(String name) {

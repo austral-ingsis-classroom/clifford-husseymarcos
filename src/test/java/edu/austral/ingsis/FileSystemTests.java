@@ -2,7 +2,6 @@ package edu.austral.ingsis;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FileSystemTests {
 
   private final MyFileSystemRunner runner =  new MyFileSystemRunner();
-  List<String> commands = new ArrayList<>();
-
 
   private void executeTest(List<Map.Entry<String, String>> commandsAndResults) {
     final List<String> commands = commandsAndResults.stream().map(Map.Entry::getKey).toList();

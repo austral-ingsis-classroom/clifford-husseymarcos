@@ -5,7 +5,7 @@ import edu.austral.ingsis.clifford.Directory;
 public class CdCommand implements Command{
 
     Directory currentDirectory;
-    private String name;
+    private final String name;
 
     public CdCommand(Directory currentDirectory, String name) {
         this.currentDirectory = currentDirectory;
@@ -14,6 +14,7 @@ public class CdCommand implements Command{
 
     @Override
     public String execute() {
+
         if (name.equals("..")) {
             Directory parent = currentDirectory.getParent();
             if (parent != null) {
@@ -23,12 +24,14 @@ public class CdCommand implements Command{
                 return "Already at the root directory.";
             }
         } else {
+
             Directory newDirectory = currentDirectory.getSubDirectory(name);
+
             if (newDirectory != null) {
                 currentDirectory = newDirectory;
-                return name;
+                return "Changed directory to '" + name + "'";
             } else {
-                return "";
+                return "'" + name + "' directory does not exist";
             }
         }
     }
