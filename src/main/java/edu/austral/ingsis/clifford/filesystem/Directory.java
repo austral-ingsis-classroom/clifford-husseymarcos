@@ -23,10 +23,6 @@ public class Directory implements FileSystem {
     return name;
   }
 
-  public Directory getParent() {
-    return parent;
-  }
-
   public void add(FileSystem archive) {
     String archiveName = archive.name();
     allFileSystems.remove(archiveName);
@@ -81,7 +77,7 @@ public class Directory implements FileSystem {
       if (!currentDirectoryName.equals("/")) {
         pathDeque.addFirst(currentDirectoryName);
       }
-      current = current.getParent();
+      current = current.directory();
     }
 
     if (pathDeque.isEmpty()) {
@@ -106,8 +102,8 @@ public class Directory implements FileSystem {
 
   public Directory getRootDirectory() {
     Directory current = this;
-    while (current.getParent() != null) {
-      current = current.getParent();
+    while (current.directory() != null) {
+      current = current.directory();
     }
     return current;
   }

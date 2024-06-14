@@ -32,7 +32,7 @@ public class CdCommand implements Command {
 
       if (getToParentDirectory) {
 
-        Directory parent = destination.getParent();
+        Directory parent = destination.directory();
 
         if (parent != null) {
           destination = parent;
