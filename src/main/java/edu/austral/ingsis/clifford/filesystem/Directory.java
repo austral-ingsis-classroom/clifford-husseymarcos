@@ -77,6 +77,21 @@ public class Directory implements FileSystem {
         return false;
     }
 
+    public String getPath() {
+        Deque<String> pathDeque = new LinkedList<>();
+        Directory current = this;
+
+        while (current != null) {
+
+            String currentDirectoryName = current.getName();
+            pathDeque.addFirst(currentDirectoryName);
+            current = current.getParent();
+
+        }
+
+        return String.join("/", pathDeque);
+    }
+
     @Override
     public String toString() {
         return name;

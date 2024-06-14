@@ -15,7 +15,7 @@ public class MyFileSystemRunner implements FileSystemRunner{
     private final Map<String, CommandBuilder> commandBuilders;
 
     public MyFileSystemRunner() {
-        this.currentDirectory = new Directory("root");
+        this.currentDirectory = new Directory("");
         this.commandBuilders = new HashMap<>();
         initializeCommandBuilders();
     }
@@ -26,6 +26,7 @@ public class MyFileSystemRunner implements FileSystemRunner{
         commandBuilders.put("mkdir", new MkDirCommandBuilder());
         commandBuilders.put("touch", new TouchCommandBuilder());
         commandBuilders.put("rm", new RmCommandBuilder());
+        commandBuilders.put("pwd", new PwdCommandBuilder());
     }
 
     @Override

@@ -39,7 +39,7 @@ public class RmCommand implements Command{
 
             return directory.removeSubDirectory(directoryName);
         }
-        
+
         File fileToRemove = directory.getFile(directoryName);
         directory.removeFile(directoryName);
         return fileToRemove != null;
