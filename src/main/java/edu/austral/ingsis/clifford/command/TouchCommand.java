@@ -8,6 +8,9 @@ public class TouchCommand implements Command {
   private final Directory currentDirectory;
   private final String fileName;
 
+  ArchiveCreator archiveCreator = new ArchiveCreator();
+
+
   public TouchCommand(Directory currentDirectory, String fileName) {
     this.currentDirectory = currentDirectory;
     this.fileName = fileName;
@@ -15,12 +18,6 @@ public class TouchCommand implements Command {
 
   @Override
   public String execute() {
-    if (fileName.contains("/") || fileName.contains(" ")) {
-      return "Invalid file name: '" + fileName + "'. It cannot contain '/' or spaces.";
-    }
-
-    File newFile = new File(fileName);
-    currentDirectory.add(newFile);
-    return "'" + fileName + "' file created";
+    return archiveCreator.createArchive(new File(fileName, currentDirectory));
   }
 }

@@ -7,6 +7,8 @@ public class MkDirCommand implements Command {
   private final Directory currentDirectory;
   private final String dirName;
 
+  ArchiveCreator archiveCreator = new ArchiveCreator();
+
   public MkDirCommand(Directory currentDirectory, String dirName) {
     this.currentDirectory = currentDirectory;
     this.dirName = dirName;
@@ -14,18 +16,8 @@ public class MkDirCommand implements Command {
 
   @Override
   public String execute() {
-    boolean containsSlash = dirName.contains("/");
-    boolean containsSpaces = dirName.contains(" ");
-
-    boolean invalidDirectory = containsSlash || containsSpaces;
-
-    if (invalidDirectory) {
-      return "Invalid directory name: '" + dirName + "'. It cannot contain '/' or spaces.";
-    }
-
-    Directory newDir = new Directory(dirName, currentDirectory);
-    currentDirectory.add(newDir);
-    return "'" + dirName + "' directory created";
+    Directory newDirectory = new Directory(dirName, currentDirectory);
+    return archiveCreator.createArchive(newDirectory);
   }
 
   @Override

@@ -16,16 +16,26 @@ public class LsCommandBuilder implements CommandBuilder {
   }
 
   private void parseArguments(String arguments) {
-    if ("--ord=asc".equals(arguments)) {
-      setAscendingOrder(true);
-    } else if ("--ord=desc".equals(arguments)) {
-      setAscendingOrder(false);
-    } else {
-      setNoOrder(true);
-    }
+
+      boolean ascending = "--ord=asc".equals(arguments);
+      boolean descending = "--ord=desc".equals(arguments);
+
+      setOrderOfItems(ascending, descending);
   }
 
-  public void setAscendingOrder(boolean ascendingOrder) {
+    private void setOrderOfItems(boolean ascending, boolean descending) {
+        if (ascending) {
+          setAscendingOrder(true);
+        } else {
+            if (descending) {
+                setAscendingOrder(false);
+            } else {
+                setNoOrder(true);
+            }
+        }
+    }
+
+    public void setAscendingOrder(boolean ascendingOrder) {
     this.ascendingOrder = ascendingOrder;
     this.noOrder = false;
   }

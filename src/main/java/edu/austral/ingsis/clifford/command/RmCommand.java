@@ -3,6 +3,8 @@ package edu.austral.ingsis.clifford.command;
 import edu.austral.ingsis.clifford.filesystem.Directory;
 import edu.austral.ingsis.clifford.filesystem.File;
 
+import java.util.Collection;
+
 public class RmCommand implements Command {
 
   Directory currentDirectory;
@@ -30,7 +32,10 @@ public class RmCommand implements Command {
     Directory subDirectoryToRemove = directory.getSubDirectory(directoryName);
 
     if (subDirectoryToRemove != null) {
-      for (Directory subDirectory : subDirectoryToRemove.getSubDirectories().values()) {
+
+      Collection<Directory> subDirectorySubDirectories = subDirectoryToRemove.getSubDirectories().values();
+
+      for (Directory subDirectory : subDirectorySubDirectories) {
 
         String subDirectoryName = subDirectory.getName();
         removeRecursive(subDirectoryToRemove, subDirectoryName);
@@ -39,12 +44,17 @@ public class RmCommand implements Command {
       return directory.removeSubDirectory(directoryName);
     }
 
+    return removeFile(directory, directoryName);
+  }
+
+  private boolean removeFile(Directory directory, String directoryName) {
     File fileToRemove = directory.getFile(directoryName);
     directory.removeFile(directoryName);
     return fileToRemove != null;
   }
 
   private String removeNonRecursive(Directory directory, String itemName) {
+
     Directory subDirectoryToRemove = directory.getSubDirectory(itemName);
 
     if (subDirectoryToRemove != null) {

@@ -18,17 +18,16 @@ public class LsCommand implements Command {
 
   @Override
   public String execute() {
-    List<String> contents;
-    contents = listContents(directory);
+    List<String> contents = listContents(directory);
     return String.join(" ", contents);
   }
 
   public List<String> listContents(Directory directory) {
-    Map<String, FileSystem> allFiles = directory.getAllFileSystems();
+    Map<String, FileSystem> allArchives = directory.getAllFileSystems();
 
-    Set<String> allArchives = allFiles.keySet();
+    Set<String> allArchivesString = allArchives.keySet();
 
-    List<String> contents = new ArrayList<>(allArchives);
+    List<String> contents = new ArrayList<>(allArchivesString);
 
     if (noOrder) {
       return contents;
