@@ -59,14 +59,15 @@ public class MyFileSystemRunner implements FileSystemRunner{
             return "Unknown command: " + command;
         }
 
-        String arguments = parts[1];
+        boolean hasArguments = parts.length > 1;
+        String arguments = hasArguments ? parts[1] : "";
 
         switch (mainCommand) {
             case "mkdir":
                 mkdirCommandOptions((MkDirCommandBuilder) builder, arguments);
                 break;
             case "ls":
-                lsCommandOptions((LsCommandBuilder) builder, parts);
+                lsCommandOptions((LsCommandBuilder) builder, arguments);
                 break;
             case "cd":
                 cdCommandOptions((CdCommandBuilder) builder, arguments);
@@ -91,8 +92,7 @@ public class MyFileSystemRunner implements FileSystemRunner{
         builder.setDirName(arguments);
     }
 
-    private  void lsCommandOptions(LsCommandBuilder builder, String[] parts) {
-        String arguments = parts[1];
+    private  void lsCommandOptions(LsCommandBuilder builder, String arguments) {
         boolean ascendingOrder = "--ord=asc".equals(arguments);
         if (ascendingOrder) {
             builder.setAscendingOrder(true);
