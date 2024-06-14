@@ -58,7 +58,7 @@ public class RmCommand implements Command {
     Directory subDirectoryToRemove = directory.getSubDirectory(itemName);
 
     if (subDirectoryToRemove != null) {
-      return "Use --recursive option to remove directories";
+      return "cannot remove '" + itemName + "', is a directory";
     }
 
     File fileToRemove = directory.getFile(itemName);

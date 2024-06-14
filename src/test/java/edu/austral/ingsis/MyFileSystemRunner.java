@@ -42,10 +42,9 @@ public class MyFileSystemRunner implements FileSystemRunner {
   private String executeCommand(String command) {
 
     String[] parts = command.split(" ");
-    boolean hasArguments = parts.length > 1;
 
     String mainCommand = parts[0];
-    String arguments = hasArguments ? parts[1] : "";
+    String parameters = command.substring(mainCommand.length()).trim();
 
     CommandBuilder builder = commandBuilders.get(mainCommand);
 
@@ -53,7 +52,7 @@ public class MyFileSystemRunner implements FileSystemRunner {
       return "Unknown command: " + command;
     }
 
-    Command cmd = builder.build(arguments, currentDirectory);
+    Command cmd = builder.build(parameters, currentDirectory);
     String result = cmd.execute();
 
     checkChangeCurrentDirectory(cmd);
