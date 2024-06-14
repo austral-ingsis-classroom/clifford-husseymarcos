@@ -15,7 +15,7 @@ public class Directory implements FileSystem {
     public Directory(String name, Directory parent) {
         this.name = name;
         this.parent = parent;
-        this.allFileSystems = new HashMap<>();
+        this.allFileSystems = new LinkedHashMap<>();
     }
 
     @Override
@@ -53,8 +53,6 @@ public class Directory implements FileSystem {
         }
         return subDirectories;
     }
-
-
 
     public File getFile(String name) {
         FileSystem archive = allFileSystems.get(name);
