@@ -29,8 +29,10 @@ public class Directory implements FileSystem {
 
     public void add(FileSystem archive) {
         String archiveName = archive.getName();
+        allFileSystems.remove(archiveName);
         allFileSystems.put(archiveName, archive);
     }
+
 
     public Directory getSubDirectory(String name) {
         FileSystem archive = allFileSystems.get(name);

@@ -28,7 +28,7 @@ public class CdCommand implements Command{
                 if (parent != null) {
                     destination = parent;
                 } else {
-                    return "Cannot move beyond root directory";
+                    return "moved to directory '" + currentDirectory.getName() + "'";
                 }
             } else {
                 Directory nextDir = destination.getSubDirectory(dir);
