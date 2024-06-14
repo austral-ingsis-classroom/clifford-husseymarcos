@@ -1,6 +1,6 @@
 package edu.austral.ingsis.clifford.command;
 
-import edu.austral.ingsis.clifford.Directory;
+import edu.austral.ingsis.clifford.filesystem.Directory;
 
 public class CdCommand implements Command{
 
