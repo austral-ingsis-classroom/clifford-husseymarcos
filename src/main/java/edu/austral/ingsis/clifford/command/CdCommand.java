@@ -26,7 +26,7 @@ public class CdCommand implements Command{
             Directory newDirectory = currentDirectory.getSubDirectory(name);
             if (newDirectory != null) {
                 currentDirectory = newDirectory;
-                return "Changed directory to '" + name + "'";
+                return "moved to directory '" + name + "'";
             } else {
                 return "'" + name + "' directory does not exist";
             }
