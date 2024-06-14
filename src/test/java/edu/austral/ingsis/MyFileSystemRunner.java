@@ -1,10 +1,7 @@
 package edu.austral.ingsis;
 
 import edu.austral.ingsis.clifford.command.*;
-import edu.austral.ingsis.clifford.command.builder.CdCommandBuilder;
-import edu.austral.ingsis.clifford.command.builder.CommandBuilder;
-import edu.austral.ingsis.clifford.command.builder.LsCommandBuilder;
-import edu.austral.ingsis.clifford.command.builder.MkDirCommandBuilder;
+import edu.austral.ingsis.clifford.command.builder.*;
 import edu.austral.ingsis.clifford.filesystem.Directory;
 
 import java.util.ArrayList;
@@ -35,6 +32,11 @@ public class MyFileSystemRunner implements FileSystemRunner{
         commandBuilders.put("mkdir", new MkDirCommandBuilder()
                 .setCurrentDirectory(currentDirectory)
                 .setDirName(""));
+
+        commandBuilders.put("touch", new TouchCommandBuilder()
+        .setCurrentDirectory(currentDirectory)
+                .setFileName(""));
+
     }
 
     @Override
@@ -72,6 +74,9 @@ public class MyFileSystemRunner implements FileSystemRunner{
             case "cd":
                 cdCommandOptions((CdCommandBuilder) builder, arguments);
                 break;
+            case "touch":
+                touchCommandOptions((TouchCommandBuilder) builder, arguments);
+                break;
         }
 
         Command cmd = builder.build();
@@ -106,6 +111,10 @@ public class MyFileSystemRunner implements FileSystemRunner{
                 builder.setNoOrder(true);
             }
         }
+    }
+
+    private  void touchCommandOptions(TouchCommandBuilder builder, String arguments) {
+        builder.setFileName(arguments);
     }
 
     private  void mkdirCommandOptions(MkDirCommandBuilder builder, String arguments) {
