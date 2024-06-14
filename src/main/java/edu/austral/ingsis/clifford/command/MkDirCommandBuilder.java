@@ -2,24 +2,26 @@ package edu.austral.ingsis.clifford.command;
 
 import edu.austral.ingsis.clifford.Directory;
 
-public class CdCommandBuilder implements CommandBuilder{
+public class MkDirCommandBuilder implements CommandBuilder {
 
     private Directory currentDirectory;
     private String dirName;
 
-    public CdCommandBuilder setCurrentDirectory(Directory currentDirectory) {
+    public MkDirCommandBuilder setCurrentDirectory(Directory currentDirectory) {
         this.currentDirectory = currentDirectory;
         return this;
     }
 
-    public CdCommandBuilder setDirName(String dirName) {
+    public MkDirCommandBuilder setDirName(String dirName) {
         this.dirName = dirName;
         return this;
     }
 
     @Override
     public Command build() {
-        return new CdCommand(currentDirectory, dirName);
+        return new MkDirCommand(currentDirectory, dirName);
     }
-
 }
+
+
+
