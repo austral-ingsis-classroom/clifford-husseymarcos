@@ -29,7 +29,7 @@ public class MyFileSystemRunner implements FileSystemRunner{
                 .setDirName(""));
 
         commandBuilders.put("ls", new LsCommandBuilder()
-                .setDirectory(currentDirectory)
+                .setCurrentDirectory(currentDirectory)
                 .setNoOrder(true));
 
         commandBuilders.put("mkdir", new MkDirCommandBuilder()
@@ -94,12 +94,17 @@ public class MyFileSystemRunner implements FileSystemRunner{
 
     private  void lsCommandOptions(LsCommandBuilder builder, String arguments) {
         boolean ascendingOrder = "--ord=asc".equals(arguments);
+        boolean descendingOrder = "--ord=desc".equals(arguments);
+
+
         if (ascendingOrder) {
             builder.setAscendingOrder(true);
-        } else if ("--ord=desc".equals(arguments)) {
-            builder.setAscendingOrder(false);
         } else {
-            builder.setNoOrder(true);
+            if (descendingOrder) {
+                builder.setAscendingOrder(false);
+            } else {
+                builder.setNoOrder(true);
+            }
         }
     }
 

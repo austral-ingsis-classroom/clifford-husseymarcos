@@ -16,7 +16,7 @@ public class Directory implements FileSystem {
     public Directory(String name, Directory parent) {
         this.name = name;
         this.parent = parent;
-        this.subDirectories = new HashMap<>();
+        this.subDirectories = new LinkedHashMap<>();
         this.files = new HashMap<>();
     }
 
@@ -37,25 +37,17 @@ public class Directory implements FileSystem {
         files.put(file.getName(), file);
     }
 
-    public List<String> listContents(boolean ascendingOrder) {
-        Set<String> subDirectories = this.subDirectories.keySet();
-        Set<String> files = this.files.keySet();
-
-        List<String> contents = new ArrayList<>(subDirectories);
-        contents.addAll(files);
-
-        if (ascendingOrder) {
-            Collections.sort(contents);
-        } else {
-            Comparator<String> reverseOrder = Collections.reverseOrder();
-            contents.sort(reverseOrder);
-        }
-        return contents;
-    }
-
 
     public Directory getSubDirectory(String name) {
         return subDirectories.get(name);
+    }
+
+    public Map<String, Directory> getSubDirectories() {
+        return subDirectories;
+    }
+
+    public Map<String, File> getFiles() {
+        return files;
     }
 
 }

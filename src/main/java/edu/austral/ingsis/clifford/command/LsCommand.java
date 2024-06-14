@@ -1,7 +1,9 @@
 package edu.austral.ingsis.clifford.command;
 
-import java.util.List;
+import java.util.*;
+
 import edu.austral.ingsis.clifford.filesystem.Directory;
+import edu.austral.ingsis.clifford.filesystem.File;
 
 public class LsCommand implements Command {
 
@@ -18,14 +20,32 @@ public class LsCommand implements Command {
     @Override
     public String execute() {
         List<String> contents;
-
-        if (noOrder) {
-            boolean noOrder = false;
-            contents = directory.listContents(noOrder);
-        } else {
-            contents = directory.listContents(ascendingOrder);
-        }
+        contents = listContents(directory);
         return String.join(" ", contents);
+    }
+
+    public List<String> listContents(Directory directory) {
+        Map<String, Directory> directorySubDirectories = directory.getSubDirectories();
+        Map<String, File> directoryFiles = directory.getFiles();
+
+        Set<String> subDirectories = directorySubDirectories.keySet();
+        Set<String> files = directoryFiles.keySet();
+
+        List<String> contents = new ArrayList<>(subDirectories);
+        contents.addAll(files);
+
+        if (noOrder){
+            return contents;
+        }
+
+        if (ascendingOrder) {
+            Collections.sort(contents);
+        } else {
+            Comparator<String> reverseOrder = Collections.reverseOrder();
+            contents.sort(reverseOrder);
+        }
+
+        return contents;
     }
 }
 

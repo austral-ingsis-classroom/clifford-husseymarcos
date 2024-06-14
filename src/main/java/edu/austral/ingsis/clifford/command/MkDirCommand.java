@@ -13,16 +13,29 @@ public class MkDirCommand implements Command{
         this.dirName = dirName;
     }
 
-
     @Override
     public String execute() {
-        if (dirName.contains("/") || dirName.contains(" ")) {
+        boolean containsSlash = dirName.contains("/");
+        boolean containsSpaces = dirName.contains(" ");
+
+        boolean invalidDirectory = containsSlash || containsSpaces;
+
+        if (invalidDirectory) {
             return "Invalid directory name: '" + dirName + "'. It cannot contain '/' or spaces.";
         }
 
         Directory newDir = new Directory(dirName, currentDirectory);
         currentDirectory.add(newDir);
         return "'" + dirName + "' directory created";
+    }
+
+
+    @Override
+    public String toString() {
+        return "mkdir {" +
+                "current Directory=" + currentDirectory.getName() +
+                ", new Directory ='" + dirName + '\'' +
+                '}';
     }
 
 
