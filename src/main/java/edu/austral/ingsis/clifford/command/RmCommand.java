@@ -2,7 +2,6 @@ package edu.austral.ingsis.clifford.command;
 
 import edu.austral.ingsis.clifford.filesystem.Directory;
 import edu.austral.ingsis.clifford.filesystem.File;
-
 import java.util.Collection;
 
 public class RmCommand implements Command {
@@ -33,7 +32,8 @@ public class RmCommand implements Command {
 
     if (subDirectoryToRemove != null) {
 
-      Collection<Directory> subDirectorySubDirectories = subDirectoryToRemove.getSubDirectories().values();
+      Collection<Directory> subDirectorySubDirectories =
+          subDirectoryToRemove.getSubDirectories().values();
 
       for (Directory subDirectory : subDirectorySubDirectories) {
 

@@ -1,5 +1,6 @@
 package edu.austral.ingsis.clifford.command;
 
+import edu.austral.ingsis.clifford.filesystem.ArchiveCreator;
 import edu.austral.ingsis.clifford.filesystem.Directory;
 import edu.austral.ingsis.clifford.filesystem.File;
 
@@ -9,7 +10,6 @@ public class TouchCommand implements Command {
   private final String fileName;
 
   ArchiveCreator archiveCreator = new ArchiveCreator();
-
 
   public TouchCommand(Directory currentDirectory, String fileName) {
     this.currentDirectory = currentDirectory;
