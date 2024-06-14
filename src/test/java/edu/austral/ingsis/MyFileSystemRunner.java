@@ -15,7 +15,7 @@ public class MyFileSystemRunner implements FileSystemRunner{
     private final Map<String, CommandBuilder> commandBuilders;
 
     public MyFileSystemRunner() {
-        this.currentDirectory = new Directory("");
+        this.currentDirectory = new Directory("/");
         this.commandBuilders = new HashMap<>();
         initializeCommandBuilders();
     }
@@ -53,7 +53,7 @@ public class MyFileSystemRunner implements FileSystemRunner{
         if (builder == null) {
             return "Unknown command: " + command;
         }
-        
+
         Command cmd = builder.build(arguments, currentDirectory);
         String result = cmd.execute();
 

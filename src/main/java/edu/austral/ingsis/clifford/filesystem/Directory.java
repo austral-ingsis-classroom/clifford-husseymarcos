@@ -27,14 +27,10 @@ public class Directory implements FileSystem {
         return parent;
     }
 
-    public void add(Directory directory) {
-        allFileSystems.put(directory.getName(), directory);
+    public void add(FileSystem archive) {
+        String archiveName = archive.getName();
+        allFileSystems.put(archiveName, archive);
     }
-
-    public void add(File file) {
-        allFileSystems.put(file.getName(), file);
-    }
-
 
     public Directory getSubDirectory(String name) {
         FileSystem archive = allFileSystems.get(name);
@@ -80,15 +76,30 @@ public class Directory implements FileSystem {
         Directory current = this;
 
         while (current != null) {
-
             String currentDirectoryName = current.getName();
-            pathDeque.addFirst(currentDirectoryName);
+            if (!currentDirectoryName.equals("/")) {
+                pathDeque.addFirst(currentDirectoryName);
+            }
             current = current.getParent();
-
         }
 
-        return String.join("/", pathDeque);
+        if (pathDeque.isEmpty()) {
+            return "/";
+        } else {
+            return "/" + String.join("/", pathDeque);
+        }
     }
+
+    public Directory getRootDirectory() {
+        Directory current = this;
+        while (current.getParent() != null) {
+            current = current.getParent();
+        }
+        return current;
+    }
+
+
+
 
     public Map<String, FileSystem> getAllFileSystems() {
         return allFileSystems;

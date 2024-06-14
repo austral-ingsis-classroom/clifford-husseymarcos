@@ -14,24 +14,36 @@ public class CdCommand implements Command{
 
     @Override
     public String execute() {
-        if (name.equals("..")) {
-            Directory parent = currentDirectory.getParent();
-            if (parent != null) {
-                currentDirectory = parent;
-                return "moved to directory '" + parent.getName() + "'";
+        if (name.equals("/")) {
+            currentDirectory = currentDirectory.getRootDirectory();
+            return "moved to directory '" + currentDirectory.getName() + "'";
+        }
+
+        String[] directories = name.split("/");
+        Directory destination = currentDirectory;
+
+        for (String dir : directories) {
+            if (dir.equals("..")) {
+                Directory parent = destination.getParent();
+                if (parent != null) {
+                    destination = parent;
+                } else {
+                    return "Cannot move beyond root directory";
+                }
             } else {
-                return "moved to directory '/'";
-            }
-        } else {
-            Directory newDirectory = currentDirectory.getSubDirectory(name);
-            if (newDirectory != null) {
-                currentDirectory = newDirectory;
-                return "moved to directory '" + name + "'";
-            } else {
-                return "'" + name + "' directory does not exist";
+                Directory nextDir = destination.getSubDirectory(dir);
+                if (nextDir != null) {
+                    destination = nextDir;
+                } else {
+                    return "'" + dir + "' directory does not exist";
+                }
             }
         }
+
+        currentDirectory = destination;
+        return "moved to directory '" + destination.getName() + "'";
     }
+
 
     public Directory getCurrentDirectory() {
         return currentDirectory;
