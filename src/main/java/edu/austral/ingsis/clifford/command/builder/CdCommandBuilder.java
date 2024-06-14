@@ -1,8 +1,10 @@
-package edu.austral.ingsis.clifford.command;
+package edu.austral.ingsis.clifford.command.builder;
 
-import edu.austral.ingsis.clifford.Directory;
+import edu.austral.ingsis.clifford.filesystem.Directory;
+import edu.austral.ingsis.clifford.command.CdCommand;
+import edu.austral.ingsis.clifford.command.Command;
 
-public class CdCommandBuilder implements CommandBuilder{
+public class CdCommandBuilder implements CommandBuilder {
 
     private Directory currentDirectory;
     private String dirName;

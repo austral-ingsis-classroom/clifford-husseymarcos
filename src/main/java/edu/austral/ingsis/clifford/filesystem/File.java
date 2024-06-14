@@ -1,6 +1,6 @@
-package edu.austral.ingsis.clifford;
+package edu.austral.ingsis.clifford.filesystem;
 
-public class File implements FileSystem{
+public class File implements FileSystem {
 
     private String name;
 

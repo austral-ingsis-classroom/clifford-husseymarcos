@@ -1,9 +1,9 @@
-package edu.austral.ingsis.clifford;
+package edu.austral.ingsis.clifford.filesystem;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Directory implements FileSystem{
+public class Directory implements FileSystem {
 
     private final String name;
     private final Directory parent;

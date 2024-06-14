@@ -1,7 +1,10 @@
 package edu.austral.ingsis;
 
-import edu.austral.ingsis.clifford.Directory;
+import edu.austral.ingsis.clifford.filesystem.Directory;
 import edu.austral.ingsis.clifford.command.*;
+import edu.austral.ingsis.clifford.command.builder.CdCommandBuilder;
+import edu.austral.ingsis.clifford.command.builder.CommandBuilder;
+import edu.austral.ingsis.clifford.command.builder.MkDirCommandBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +21,6 @@ public class MyFileSystemRunner implements FileSystemRunner{
         this.commandBuilders = new HashMap<>();
         initializeCommandBuilders();
     }
-
 
     private void initializeCommandBuilders() {
         commandBuilders.put("cd", new CdCommandBuilder()

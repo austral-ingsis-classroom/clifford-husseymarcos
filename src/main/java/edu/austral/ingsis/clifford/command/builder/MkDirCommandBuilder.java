@@ -1,6 +1,8 @@
-package edu.austral.ingsis.clifford.command;
+package edu.austral.ingsis.clifford.command.builder;
 
-import edu.austral.ingsis.clifford.Directory;
+import edu.austral.ingsis.clifford.filesystem.Directory;
+import edu.austral.ingsis.clifford.command.Command;
+import edu.austral.ingsis.clifford.command.MkDirCommand;
 
 public class MkDirCommandBuilder implements CommandBuilder {
 
