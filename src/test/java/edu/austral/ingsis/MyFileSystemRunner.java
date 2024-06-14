@@ -1,7 +1,14 @@
 package edu.austral.ingsis;
 
-import edu.austral.ingsis.clifford.command.*;
-import edu.austral.ingsis.clifford.command.builder.*;
+import edu.austral.ingsis.clifford.command.CdCommand;
+import edu.austral.ingsis.clifford.command.Command;
+import edu.austral.ingsis.clifford.command.builder.CdCommandBuilder;
+import edu.austral.ingsis.clifford.command.builder.CommandBuilder;
+import edu.austral.ingsis.clifford.command.builder.LsCommandBuilder;
+import edu.austral.ingsis.clifford.command.builder.MkDirCommandBuilder;
+import edu.austral.ingsis.clifford.command.builder.PwdCommandBuilder;
+import edu.austral.ingsis.clifford.command.builder.RmCommandBuilder;
+import edu.austral.ingsis.clifford.command.builder.TouchCommandBuilder;
 import edu.austral.ingsis.clifford.filesystem.Directory;
 import java.util.ArrayList;
 import java.util.HashMap;
