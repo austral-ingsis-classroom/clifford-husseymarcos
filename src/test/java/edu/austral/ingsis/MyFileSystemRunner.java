@@ -61,7 +61,8 @@ public class MyFileSystemRunner implements FileSystemRunner {
   }
 
   private void checkChangeCurrentDirectory(Command cmd) {
-    if (cmd instanceof CdCommand cdCommand) {
+    if (cmd instanceof CdCommand) {
+      CdCommand cdCommand = (CdCommand) cmd;
       currentDirectory = cdCommand.getCurrentDirectory();
     }
   }
