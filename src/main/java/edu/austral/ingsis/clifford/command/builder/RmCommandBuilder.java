@@ -6,21 +6,21 @@ import edu.austral.ingsis.clifford.filesystem.Directory;
 
 public class RmCommandBuilder implements CommandBuilder {
 
-    @Override
-    public Command build(String arguments, Directory currentDirectory) {
-        boolean isRecursive = isRecursive(arguments);
-        String name = extractName(arguments);
-        return new RmCommand(currentDirectory, name, isRecursive);
-    }
+  @Override
+  public Command build(String arguments, Directory currentDirectory) {
+    boolean isRecursive = isRecursive(arguments);
+    String name = extractName(arguments);
+    return new RmCommand(currentDirectory, name, isRecursive);
+  }
 
-    private boolean isRecursive(String arguments) {
-        return arguments != null && arguments.contains("--recursive");
-    }
+  private boolean isRecursive(String arguments) {
+    return arguments != null && arguments.contains("--recursive");
+  }
 
-    private String extractName(String arguments) {
-        if (arguments != null) {
-            return arguments.replace("--recursive", "").trim();
-        }
-        return null;
+  private String extractName(String arguments) {
+    if (arguments != null) {
+      return arguments.replace("--recursive", "").trim();
     }
+    return null;
+  }
 }
