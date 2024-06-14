@@ -20,8 +20,8 @@ public class CdCommandBuilder implements CommandBuilder {
     }
 
     @Override
-    public Command build() {
-        return new CdCommand(currentDirectory, dirName);
+    public Command build(String arguments, Directory currentDirectory) {
+        return new CdCommand(currentDirectory, arguments);
     }
 
 }

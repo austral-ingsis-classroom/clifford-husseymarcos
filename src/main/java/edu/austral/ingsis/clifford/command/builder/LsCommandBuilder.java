@@ -6,28 +6,31 @@ import edu.austral.ingsis.clifford.filesystem.Directory;
 
 public class LsCommandBuilder implements CommandBuilder{
 
-    private Directory currentDirectory;
     private boolean ascendingOrder;
     private boolean noOrder;
 
-    public LsCommandBuilder setCurrentDirectory(Directory directory) {
-        this.currentDirectory = directory;
-        return this;
-    }
-
     @Override
-    public Command build() {
+    public Command build(String arguments, Directory currentDirectory) {
+        parseArguments(arguments);
         return new LsCommand(currentDirectory, ascendingOrder, noOrder);
     }
 
-    public LsCommandBuilder setAscendingOrder(boolean ascendingOrder) {
-        this.ascendingOrder = ascendingOrder;
-        this.noOrder = false;
-        return this;
+    private void parseArguments(String arguments) {
+        if ("--ord=asc".equals(arguments)) {
+            setAscendingOrder(true);
+        } else if ("--ord=desc".equals(arguments)) {
+            setAscendingOrder(false);
+        } else {
+            setNoOrder(true);
+        }
     }
 
-    public LsCommandBuilder setNoOrder(boolean noOrder) {
+    public void setAscendingOrder(boolean ascendingOrder) {
+        this.ascendingOrder = ascendingOrder;
+        this.noOrder = false;
+    }
+
+    public void setNoOrder(boolean noOrder) {
         this.noOrder = noOrder;
-        return this;
     }
 }

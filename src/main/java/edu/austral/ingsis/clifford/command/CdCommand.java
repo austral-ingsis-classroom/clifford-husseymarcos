@@ -36,4 +36,12 @@ public class CdCommand implements Command{
     public Directory getCurrentDirectory() {
         return currentDirectory;
     }
+
+    @Override
+    public String toString() {
+        return "cd {" +
+                "current Directory=" + currentDirectory.getName() +
+                ", new Directory ='" + name + '\'' +
+                '}';
+    }
 }

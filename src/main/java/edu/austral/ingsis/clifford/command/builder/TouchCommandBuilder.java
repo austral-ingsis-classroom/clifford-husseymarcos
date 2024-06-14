@@ -6,21 +6,8 @@ import edu.austral.ingsis.clifford.filesystem.Directory;
 
 public class TouchCommandBuilder implements CommandBuilder{
 
-    private Directory currentDirectory;
-    private String fileName;
-
-    public TouchCommandBuilder setCurrentDirectory(Directory currentDirectory) {
-        this.currentDirectory = currentDirectory;
-        return this;
-    }
-
-    public TouchCommandBuilder setFileName(String fileName) {
-        this.fileName = fileName;
-        return this;
-    }
-
     @Override
-    public Command build() {
-        return new TouchCommand(currentDirectory, fileName);
+    public Command build(String arguments, Directory currentDirectory) {
+        return new TouchCommand(currentDirectory, arguments);
     }
 }

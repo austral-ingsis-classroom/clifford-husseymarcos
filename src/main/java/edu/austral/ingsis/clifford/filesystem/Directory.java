@@ -50,4 +50,10 @@ public class Directory implements FileSystem {
         return files;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
+
 }

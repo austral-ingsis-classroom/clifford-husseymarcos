@@ -21,22 +21,10 @@ public class MyFileSystemRunner implements FileSystemRunner{
     }
 
     private void initializeCommandBuilders() {
-        commandBuilders.put("cd", new CdCommandBuilder()
-                .setCurrentDirectory(currentDirectory)
-                .setDirName(""));
-
-        commandBuilders.put("ls", new LsCommandBuilder()
-                .setCurrentDirectory(currentDirectory)
-                .setNoOrder(true));
-
-        commandBuilders.put("mkdir", new MkDirCommandBuilder()
-                .setCurrentDirectory(currentDirectory)
-                .setDirName(""));
-
-        commandBuilders.put("touch", new TouchCommandBuilder()
-        .setCurrentDirectory(currentDirectory)
-                .setFileName(""));
-
+        commandBuilders.put("cd", new CdCommandBuilder());
+        commandBuilders.put("ls", new LsCommandBuilder());
+        commandBuilders.put("mkdir", new MkDirCommandBuilder());
+        commandBuilders.put("touch", new TouchCommandBuilder());
     }
 
     @Override
@@ -63,23 +51,8 @@ public class MyFileSystemRunner implements FileSystemRunner{
 
         boolean hasArguments = parts.length > 1;
         String arguments = hasArguments ? parts[1] : "";
-
-        switch (mainCommand) {
-            case "mkdir":
-                mkdirCommandOptions((MkDirCommandBuilder) builder, arguments);
-                break;
-            case "ls":
-                lsCommandOptions((LsCommandBuilder) builder, arguments);
-                break;
-            case "cd":
-                cdCommandOptions((CdCommandBuilder) builder, arguments);
-                break;
-            case "touch":
-                touchCommandOptions((TouchCommandBuilder) builder, arguments);
-                break;
-        }
-
-        Command cmd = builder.build();
+        
+        Command cmd = builder.build(arguments, currentDirectory);
         String result = cmd.execute();
 
         checkChangeCurrentDirectory(cmd);
@@ -93,32 +66,5 @@ public class MyFileSystemRunner implements FileSystemRunner{
         }
     }
 
-    private  void cdCommandOptions(CdCommandBuilder builder, String arguments) {
-        builder.setDirName(arguments);
-    }
-
-    private  void lsCommandOptions(LsCommandBuilder builder, String arguments) {
-        boolean ascendingOrder = "--ord=asc".equals(arguments);
-        boolean descendingOrder = "--ord=desc".equals(arguments);
-
-
-        if (ascendingOrder) {
-            builder.setAscendingOrder(true);
-        } else {
-            if (descendingOrder) {
-                builder.setAscendingOrder(false);
-            } else {
-                builder.setNoOrder(true);
-            }
-        }
-    }
-
-    private  void touchCommandOptions(TouchCommandBuilder builder, String arguments) {
-        builder.setFileName(arguments);
-    }
-
-    private  void mkdirCommandOptions(MkDirCommandBuilder builder, String arguments) {
-        builder.setDirName(arguments);
-    }
 
 }
