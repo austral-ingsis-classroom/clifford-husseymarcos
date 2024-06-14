@@ -50,6 +50,33 @@ public class Directory implements FileSystem {
         return files;
     }
 
+    public File getFile(String name) {
+        return files.get(name);
+    }
+
+    public void removeFile(String name) {
+        files.remove(name);
+    }
+
+    public boolean removeSubDirectory(String directoryName) {
+        Directory subDirectoryToRemove = subDirectories.get(directoryName);
+
+        if (subDirectoryToRemove != null) {
+
+            Collection<Directory> directories = subDirectoryToRemove.getSubDirectories().values();
+
+            for (Directory subSubDirectory : directories) {
+                String subDirectoryName = subSubDirectory.getName();
+                removeSubDirectory(subDirectoryName);
+            }
+
+            subDirectoryToRemove.getFiles().clear();
+            return subDirectories.remove(directoryName) != null;
+        }
+
+        return false;
+    }
+
     @Override
     public String toString() {
         return name;

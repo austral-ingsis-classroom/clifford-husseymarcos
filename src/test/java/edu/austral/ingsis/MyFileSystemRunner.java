@@ -25,6 +25,7 @@ public class MyFileSystemRunner implements FileSystemRunner{
         commandBuilders.put("ls", new LsCommandBuilder());
         commandBuilders.put("mkdir", new MkDirCommandBuilder());
         commandBuilders.put("touch", new TouchCommandBuilder());
+        commandBuilders.put("rm", new RmCommandBuilder());
     }
 
     @Override
@@ -51,7 +52,7 @@ public class MyFileSystemRunner implements FileSystemRunner{
 
         boolean hasArguments = parts.length > 1;
         String arguments = hasArguments ? parts[1] : "";
-        
+
         Command cmd = builder.build(arguments, currentDirectory);
         String result = cmd.execute();
 
